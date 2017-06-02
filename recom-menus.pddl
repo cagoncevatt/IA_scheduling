@@ -11,24 +11,41 @@
 		(DishType ?d - Dish ?t - Type)
 		(IsFirst ?d - Dish)
 		(IsSecond ?d - Dish)
-		(Assigned ?d - Day)
+		(FirstAssigned ?d - Day)
+		(SecondAssigned ?d - Day)
 		(DayFirst ?d - Day ?f - Dish)
 		(DaySecond ?d - Day ?s - Dish)
 	)
-	;Add prev day comprobation here and in ext 1
-	(:action set_dish
+	
+	(:action set_first_dish
+		:parameters (?day - Day ?first - Dish ?prev - Day)
+		
+		:precondition
+		(
+			(and (not (FirstAssigned ?day)) (IsFirst ?first)
+				(PrevDay ?prev ?day) (FirstAssigned ?prev) (SecondAssigned ?prev)
+			)
+		)
+		
+		:effect
+		(
+			(and (FirstAssigned ?day) (DayFirst ?day ?first))
+		)
+	)
+	
+	(:action set_second_dish
 		:parameters (?day - Day ?first - Dish ?second - Dish)
 		
 		:precondition
 		(
-			(and (not (Assigned ?day)) (IsFirst ?first) (IsSecond ?second)
+			(and (not (SecondAssigned ?day)) (FirstAssigned ?day) (DayFirst ?day ?first) (IsSecond ?second)
 				(not (Incompatible ?first ?second))
 			)
 		)
 		
 		:effect
 		(
-			(and (Assigned ?day) (DayFirst ?day ?first) (DaySecond ?day ?second))
+			(and (SecondAssigned ?day) (DaySecond ?day ?second))
 		)
 	)
 )
