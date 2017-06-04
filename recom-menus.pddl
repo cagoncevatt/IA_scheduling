@@ -15,37 +15,29 @@
 		
 		(DayFirst ?d - Day ?f - First)
 		(DaySecond ?d - Day ?s - Second)
+		
+		; Predicates to avoid usage of dummy dishes
+		(DummyFirst ?f - First)
+		(DummySec ?f - Second)
 	)
 	
 	(:action set_first_dish
 		:parameters (?day - Day ?first - First ?prev - Day)
 		
-		:precondition
-		(
-			(and (not (FirstAssigned ?day))
-				(PrevDay ?prev ?day) (FirstAssigned ?prev) (SecondAssigned ?prev)
-			)
+		:precondition (and (not (FirstAssigned ?day)) (not (DummyFirst ?first))
+			(PrevDay ?prev ?day) (FirstAssigned ?prev) (SecondAssigned ?prev)
 		)
 		
-		:effect
-		(
-			(and (FirstAssigned ?day) (DayFirst ?day ?first))
-		)
+		:effect (and (FirstAssigned ?day) (DayFirst ?day ?first))
 	)
 	
 	(:action set_second_dish
 		:parameters (?day - Day ?first - First ?second - Second)
 		
-		:precondition
-		(
-			(and (not (SecondAssigned ?day)) (FirstAssigned ?day) (DayFirst ?day ?first)
-				(not (Incompatible ?first ?second))
-			)
+		:precondition (and (not (DummySec ?second)) (not (SecondAssigned ?day)) (FirstAssigned ?day) (DayFirst ?day ?first)
+			(not (Incompatible ?first ?second))
 		)
 		
-		:effect
-		(
-			(and (SecondAssigned ?day) (DaySecond ?day ?second))
-		)
+		:effect (and (SecondAssigned ?day) (DaySecond ?day ?second))
 	)
 )
