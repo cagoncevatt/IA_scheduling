@@ -33,30 +33,30 @@
 		
 		:precondition
 		(and (not (DummyFirst ?first))
-			(exists (?sd - Day)
-				(imply (FirstInDay ?first ?sd) (= (?day ?sd)))
+			(forall (?sd - Day)
+				(imply (FirstInDay ?first ?sd) (= ?day ?sd))
 			)
 			(not (FirstAssigned ?day)) (DayFirst ?prev ?prevFirst) (not (FirstUsed ?first))
 			(PrevDay ?prev ?day) (FirstAssigned ?prev) (SecondAssigned ?prev)
 			(FirstType ?first ?firstType) (FirstType ?prevFirst ?prevType)
-			(not (= (?firstType ?typePrev)))
+			(not (= ?firstType ?prevType))
 		)
 		
 		:effect (and (FirstAssigned ?day) (DayFirst ?day ?first) (FirstUsed ?first))
 	)
 	
 	(:action set_second_dish
-		:parameters (?day - Day ?first - First ?secType - Type ?second - Second ?prevSec - Second ?prevType - Type)
+		:parameters (?day - Day ?first - First ?secType - Type ?second - Second ?prev - Day ?prevSec - Second ?prevType - Type)
 		
 		:precondition 
 		(and (not (DummySec ?second))
-			(exists (?sd - Day)
-				(imply (SecInDay ?second ?sd) (= (?day ?sd)))
+			(forall (?sd - Day)
+				(imply (SecInDay ?second ?sd) (= ?day ?sd))
 			)
 			(not (SecondAssigned ?day)) (DayFirst ?day ?first) (not (SecUsed ?second))
 			(not (Incompatible ?first ?second)) (DaySecond ?prev ?prevSec)
 			(SecType ?second ?secType) (SecType ?prevSec ?prevType)
-			(not (= (?secType ?typePrev)))
+			(not (= ?secType ?prevType))
 		)
 		
 		:effect (and (SecondAssigned ?day) (DaySecond ?day ?second) (SecUsed ?second))
