@@ -18,6 +18,9 @@
 		
 		(FirstUsed ?d - First)
 		(SecUsed ?d - Second)
+		
+		(FirstInDay ?d - First ?day - Day)
+		(SecInDay ?d - Second ?day - Day)
 	)
 	
 	
@@ -26,7 +29,11 @@
 		
 		:precondition
 		(
-			(and (not (FirstAssigned ?day)) (DayFirst ?prev ?prevFirst) (not (FirstUsed ?first))
+			(and
+				(exists (?sd - Day)
+					(imply (FirstInDay ?first ?sd) (= (?day ?sd)))
+				)
+				(not (FirstAssigned ?day)) (DayFirst ?prev ?prevFirst) (not (FirstUsed ?first))
 				(PrevDay ?prev ?day) (FirstAssigned ?prev) (SecondAssigned ?prev)
 				(FirstType ?first ?firstType) (FirstType ?prevFirst ?prevType)
 				(not (= (?firstType ?typePrev)))
@@ -44,7 +51,11 @@
 		
 		:precondition
 		(
-			(and (not (SecondAssigned ?day)) (DayFirst ?day ?first) (not (SecUsed ?second))
+			(and
+				(exists (?sd - Day)
+					(imply (SecInDay ?second ?sd) (= (?day ?sd)))
+				)
+				(not (SecondAssigned ?day)) (DayFirst ?day ?first) (not (SecUsed ?second))
 				(not (Incompatible ?first ?second)) (DaySecond ?prev ?prevSec)
 				(SecType ?second ?secType) (SecType ?prevSec ?prevType)
 				(not (= (?secType ?typePrev)))
