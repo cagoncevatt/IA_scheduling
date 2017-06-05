@@ -32,7 +32,7 @@
 		:parameters (?day - Day ?first - First ?firstType - Type ?prev - Day ?prevFirst - First ?prevType - Type)
 		
 		:precondition
-		(and (not (DummyFirst ?first)) (<= (FirstCalories ?first) 1500)
+		(and (<= (FirstCalories ?first) 1500)
 			(forall (?sf - First)
 				(imply (FirstInDay ?sf ?day) (= ?sf ?first))
 			)
@@ -49,7 +49,7 @@
 		:parameters (?day - Day ?first - First ?secType - Type ?second - Second ?prev - Day ?prevSec - Second ?prevType - Type)
 		
 		:precondition 
-		(and (not (DummySec ?second)) (<= (+ (SecCalories ?second) (FirstCalories ?first)) 1500) (>= (+ (SecCalories ?second) (FirstCalories ?first)) 1000)
+		(and (<= (+ (SecCalories ?second) (FirstCalories ?first)) 1500) (>= (+ (SecCalories ?second) (FirstCalories ?first)) 1000)
 			(forall (?ss - Second)
 				(imply (SecInDay ?ss ?day) (= ?ss ?second))
 			)

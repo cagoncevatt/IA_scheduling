@@ -3,8 +3,8 @@
 	(:objects
 		; Init objects are for the previous day considered for Monday, used as dummies.
 		Init Monday Tuesday Wednesday Thursday Friday - Day ; Days
-		InitF A - First; Firsts
-		InitS B - Second; Seconds
+		InitF A - First ; Firsts
+		InitS B - Second ; Seconds
 		InitT - Type ; Types
 	)
 	

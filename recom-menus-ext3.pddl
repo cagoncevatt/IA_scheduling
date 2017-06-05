@@ -44,7 +44,7 @@
 		:parameters (?day - Day ?first - First ?secType - Type ?second - Second ?prev - Day ?prevSec - Second ?prevType - Type)
 		
 		:precondition 
-		(and (not (DummySec ?second))
+		(and 
 			(forall (?ss - Second)
 				(imply (SecInDay ?ss ?day) (= ?ss ?second))
 			)
