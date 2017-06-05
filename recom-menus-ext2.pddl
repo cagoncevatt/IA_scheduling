@@ -8,7 +8,7 @@
 		(FirstType ?d - First ?t - Type)
 		(SecType ?d - Second ?t - Type)
 		
-		(PrevDay ?d1 - Day ?d2 - Day)
+		(PrevDay ?d1 ?d2 - Day)
 		
 		(FirstAssigned ?d - Day)
 		(SecondAssigned ?d - Day)
@@ -41,7 +41,7 @@
 		:parameters (?day - Day ?first - First ?secType - Type ?second - Second ?prev - Day ?prevSec - Second ?prevType - Type)
 		
 		:precondition (and (not (DummySec ?second)) (not (SecondAssigned ?day)) (DayFirst ?day ?first) (not (SecUsed ?second))
-			(not (Incompatible ?first ?second)) (DaySecond ?prev ?prevSec)
+			(not (Incompatible ?first ?second)) (DaySecond ?prev ?prevSec) (PrevDay ?prev ?day)
 			(SecType ?second ?secType) (SecType ?prevSec ?prevType)
 			(not (= ?secType ?prevType))
 		)

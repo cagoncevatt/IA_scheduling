@@ -8,7 +8,7 @@
 		(FirstType ?d - First ?t - Type)
 		(SecType ?d - Second ?t - Type)
 		
-		(PrevDay ?d1 - Day ?d2 - Day)
+		(PrevDay ?d1 ?d2 - Day)
 		
 		(FirstAssigned ?d - Day)
 		(SecondAssigned ?d - Day)
