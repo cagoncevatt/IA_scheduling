@@ -21,10 +21,6 @@
 		
 		(FirstInDay ?d - First ?day - Day)
 		(SecInDay ?d - Second ?day - Day)
-		
-		; Predicates to avoid usage of dummy dishes
-		(DummyFirst ?f - First)
-		(DummySec ?f - Second)
 	)
 	
 	(:functions

@@ -21,18 +21,13 @@
 		
 		(FirstInDay ?d - First ?day - Day)
 		(SecInDay ?d - Second ?day - Day)
-		
-		; Predicates to avoid usage of dummy dishes
-		(DummyFirst ?f - First)
-		(DummySec ?f - Second)
 	)
-	
 	
 	(:action set_first_dish
 		:parameters (?day - Day ?first - First ?firstType - Type ?prev - Day ?prevFirst - First ?prevType - Type)
 		
 		:precondition
-		(and (not (DummyFirst ?first))
+		(and
 			(forall (?sf - First)
 				(imply (FirstInDay ?sf ?day) (= ?sf ?first))
 			)
