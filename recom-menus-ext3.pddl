@@ -1,6 +1,6 @@
 (define (domain recom-menus)
 	(:requirements :strips :adl :typing :equality)
-	(:types First Second Type Day Price Calories)
+	(:types First Second Type Day)
 	
 	(:predicates
 		(Incompatible ?d1 - First ?d2 - Second)
