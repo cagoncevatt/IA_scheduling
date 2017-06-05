@@ -1,5 +1,5 @@
 (define (domain recom-menus)
-	(:requirements :strips :adl :typing :equality)
+	(:requirements :strips :adl :typing :equality :fluents)
 	(:types First Second Type Day Price Calories)
 	
 	(:predicates
@@ -27,12 +27,16 @@
 		(DummySec ?f - Second)
 	)
 	
+	(:functions
+		(FirstCalories ?d - First)
+		(SecCalories ?d - Second)
+	)
 	
 	(:action set_first_dish
 		:parameters (?day - Day ?first - First ?firstType - Type ?prev - Day ?prevFirst - First ?prevType - Type)
 		
 		:precondition
-		(and (not (DummyFirst ?first))
+		(and (not (DummyFirst ?first)) (<= (FirstCalories ?first) 1500)
 			(forall (?sf - First)
 				(imply (FirstInDay ?sf ?day) (= ?sf ?first))
 			)
@@ -49,7 +53,7 @@
 		:parameters (?day - Day ?first - First ?secType - Type ?second - Second ?prev - Day ?prevSec - Second ?prevType - Type)
 		
 		:precondition 
-		(and (not (DummySec ?second))
+		(and (not (DummySec ?second)) (<= (+ (SecCalories ?second) (FirstCalories ?first)) 1500) (>= (+ (SecCalories ?second) (FirstCalories ?first)) 1000)
 			(forall (?ss - Second)
 				(imply (SecInDay ?ss ?day) (= ?ss ?second))
 			)
